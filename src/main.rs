@@ -1,32 +1,37 @@
-use reqwest::Error;
+mod config;
+mod downloader;
+
+use config::Config;
+use downloader::Downloader;
+use serde_json::from_str;
+use std::env;
+use std::fs;
 
 #[tokio::main]
-async fn main() -> Result<(), Error> {
-    let api_key = "3762a9c0c658245e7c5e8611ed553a4b";
-    let base_url = "http://api.marketstack.com/v1/eod";
+async fn main() {
+    let args: Vec<String> = env::args().collect();
+    if args.len() != 2 {
+        eprintln!(
+            "Example: {} /Users/danmartinvela/Desktop/mdp/config.txt",
+            args[0]
+        );
+        std::process::exit(1);
+    }
 
-    // Parámetros de la consulta
-    let query_params = [
-        ("access_key", api_key),
-        ("symbols", "AAPL"),
-        ("date_from", "2024-09-26"),
-        ("date_to", "2024-09-27"),
-    ];
+    let config_path = &args[1];
+    let config_content =
+        fs::read_to_string(config_path).expect("Error: failed to read the config file");
+    let config: Config = from_str(&config_content).expect("Error: failed to parse the config file");
 
-    // Crea el cliente HTTP
-    let client = reqwest::Client::new();
+    let downloader = Downloader::new(config.api_key);
 
-    // Realiza la solicitud GET con los parámetros de consulta
-    let res = client
-        .get(base_url)
-        .query(&query_params)
-        .send()
-        .await?
-        .text()
-        .await?;
-
-    // Imprime la respuesta como texto
-    println!("{}", res);
-
-    Ok(())
+    for symbol in config.symbols {
+        match downloader
+            .download_data(&symbol, &config.date_from, &config.date_to)
+            .await
+        {
+            Ok(data) => println!("Data downloaded for {}: {:?}", symbol, data),
+            Err(e) => eprintln!("Error downloading data for {}: {}", symbol, e),
+        }
+    }
 }
