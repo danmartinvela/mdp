@@ -1,8 +1,10 @@
 mod config;
 mod downloader;
+mod processor;
 
 use config::Config;
 use downloader::Downloader;
+use processor::Processor;
 use serde_json::from_str;
 use std::env;
 use std::fs;
@@ -24,13 +26,17 @@ async fn main() {
     let config: Config = from_str(&config_content).expect("Error: failed to parse the config file");
 
     let downloader = Downloader::new(config.api_key);
+    let processor = Processor::new();
 
     for symbol in config.symbols {
         match downloader
             .download_data(&symbol, &config.date_from, &config.date_to)
             .await
         {
-            Ok(data) => println!("Data downloaded for {}: {:?}", symbol, data),
+            Ok(data) => {
+                //println!("Data downloaded for {}: {:?}", symbol, data);
+                processor.process_data(&data);
+            }
             Err(e) => eprintln!("Error downloading data for {}: {}", symbol, e),
         }
     }
