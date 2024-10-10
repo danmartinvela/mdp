@@ -25,7 +25,5 @@ impl Downloader {
 
         let data: Value = response.json().await?;
         Ok(data)
-
-        // falta control error
     }
 }

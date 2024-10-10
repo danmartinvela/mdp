@@ -1,5 +1,6 @@
 mod config;
 mod downloader;
+mod entry;
 mod processor;
 
 use config::Config;
