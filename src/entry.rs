@@ -36,6 +36,7 @@ impl Entry {
 
 impl fmt::Display for Entry {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        // FIX THIS; I WANT A TAB INSTEAD OF SPACES; MAKE IT WORK
         write!(
             f,
             "{}  {}  {}  {}  {:.2}  {:.2}  {:.2}",

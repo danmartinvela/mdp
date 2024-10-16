@@ -1,7 +1,9 @@
 mod config;
 mod downloader;
 mod entry;
+mod formatter;
 mod processor;
+mod writer;
 
 use config::Config;
 use downloader::Downloader;
