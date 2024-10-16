@@ -29,7 +29,7 @@ impl Processor {
                 let volume = item.get("volume").and_then(|v| v.as_i64()).unwrap_or(0);
 
                 let entry = Entry::new(symbol, date, open, close, high, low, volume);
-                println!("{}", entry);
+                println!("{}", entry); //deletable print
                 entries.push(entry);
             }
             entries

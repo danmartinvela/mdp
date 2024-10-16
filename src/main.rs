@@ -5,6 +5,7 @@ mod processor;
 
 use config::Config;
 use downloader::Downloader;
+use entry::Entry;
 use processor::Processor;
 use serde_json::from_str;
 use std::env;
@@ -14,10 +15,7 @@ use std::fs;
 async fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() != 2 {
-        eprintln!(
-            "Example: {} /Users/danmartinvela/Desktop/mdp/config.txt",
-            args[0]
-        );
+        eprintln!("[mdp - example] mdp /Users/danmartinvela/Desktop/mdp/config.txt",);
         std::process::exit(1);
     }
 
@@ -35,8 +33,7 @@ async fn main() {
             .await
         {
             Ok(data) => {
-                //println!("Data downloaded for {}: {:?}", symbol, data);
-                processor.process_data(&data);
+                let all_entries: Vec<Entry> = processor.process_data(&data);
             }
             Err(e) => eprintln!("Error downloading data for {}: {}", symbol, e),
         }

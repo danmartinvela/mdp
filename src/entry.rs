@@ -44,6 +44,7 @@ impl fmt::Display for Entry {
     }
 }
 
+// cargo test -- --nocapture
 #[cfg(test)]
 mod tests {
     use super::Entry;
