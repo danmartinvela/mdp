@@ -1,4 +1,4 @@
-use crate::{entry::Entry, formatter::MarketstackInputFormatter};
+use crate::{date_formatter::MarketstackInputFormatter, entry::Entry};
 use serde_json::Value;
 
 pub struct Processor;

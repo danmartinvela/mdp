@@ -1,7 +1,7 @@
 mod config;
+mod date_formatter;
 mod downloader;
 mod entry;
-mod formatter;
 mod processor;
 mod writer;
 

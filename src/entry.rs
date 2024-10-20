@@ -1,6 +1,6 @@
 use core::fmt;
 
-use crate::formatter::InputDateFormatter;
+use crate::date_formatter::InputDateFormatter;
 
 pub struct Entry {
     symbol: String,
@@ -51,7 +51,7 @@ impl fmt::Display for Entry {
 #[cfg(test)]
 mod tests {
     use super::Entry;
-    use crate::formatter::MarketstackInputFormatter;
+    use crate::date_formatter::MarketstackInputFormatter;
 
     #[test]
     fn test_entry_not_formatted() {
