@@ -1,4 +1,4 @@
-use crate::entry::Entry;
+use crate::{entry::Entry, formatter::MarketstackInputFormatter};
 use serde_json::Value;
 
 pub struct Processor;
@@ -28,7 +28,16 @@ impl Processor {
                 let low = item.get("low").and_then(|l| l.as_f64()).unwrap_or(0.0);
                 let volume = item.get("volume").and_then(|v| v.as_i64()).unwrap_or(0);
 
-                let entry = Entry::new(symbol, date, open, close, high, low, volume);
+                let entry = Entry::new(
+                    symbol,
+                    date,
+                    open,
+                    close,
+                    high,
+                    low,
+                    volume,
+                    Box::new(MarketstackInputFormatter),
+                );
                 println!("{}", entry); //deletable print
                 entries.push(entry);
             }

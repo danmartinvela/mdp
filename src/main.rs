@@ -27,6 +27,7 @@ async fn main() {
     let config: Config = from_str(&config_content).expect("Error: failed to parse the config file");
 
     let downloader = Downloader::new(config.api_key);
+    // TODO processor new DYN INPUT DATE
     let processor = Processor::new();
 
     for symbol in config.symbols {

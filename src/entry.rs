@@ -1,6 +1,6 @@
-// use core::fmt;
-
 use core::fmt;
+
+use crate::formatter::InputDateFormatter;
 
 pub struct Entry {
     symbol: String,
@@ -21,10 +21,12 @@ impl Entry {
         high: f64,
         low: f64,
         volume: i64,
+        formatter: Box<dyn InputDateFormatter>,
     ) -> Self {
+        let formatted_date = formatter.format(&date);
         Entry {
             symbol,
-            date,
+            date: formatted_date,
             open,
             close,
             high,
@@ -49,9 +51,11 @@ impl fmt::Display for Entry {
 #[cfg(test)]
 mod tests {
     use super::Entry;
+    use crate::formatter::MarketstackInputFormatter;
 
     #[test]
-    fn test_new() {
+    fn test_entry_not_formatted() {
+        let formatter = Box::new(MarketstackInputFormatter);
         let entry = Entry::new(
             "ASRT".to_string(),
             "2024-10-01T00:00:00+0000".to_string(),
@@ -60,13 +64,33 @@ mod tests {
             1.50,
             1.10,
             123456789,
+            formatter,
         );
         println!("{}", entry);
         println!("{}", entry);
         println!("{}", entry);
 
         assert_eq!(entry.symbol, "ASRT");
-        assert_eq!(entry.date, "2024-10-01T00:00:00+0000");
+        assert_ne!(entry.date, "2024-10-01T00:00:00+0000");
+        assert_eq!(entry.open, 1.10);
+    }
+
+    #[test]
+    fn test_entry_formatted() {
+        let formatter = Box::new(MarketstackInputFormatter);
+        let entry = Entry::new(
+            "ASRT".to_string(),
+            "2024-10-01T00:00:00+0000".to_string(),
+            1.10,
+            1.50,
+            1.50,
+            1.10,
+            123456789,
+            formatter,
+        );
+
+        assert_eq!(entry.symbol, "ASRT");
+        assert_eq!(entry.date, "01-10-2024");
         assert_eq!(entry.open, 1.10);
     }
 }
