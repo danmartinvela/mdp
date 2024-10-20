@@ -2,16 +2,19 @@ mod config;
 mod date_formatter;
 mod downloader;
 mod entry;
+mod output_formatter;
 mod processor;
 mod writer;
 
 use config::Config;
 use downloader::Downloader;
 use entry::Entry;
+use output_formatter::MetastockOutputWritterFormatter;
 use processor::Processor;
 use serde_json::from_str;
 use std::env;
 use std::fs;
+use writer::Writer;
 
 #[tokio::main]
 async fn main() {
@@ -29,6 +32,7 @@ async fn main() {
     let downloader = Downloader::new(config.api_key);
     // TODO processor new DYN INPUT DATE
     let processor = Processor::new();
+    let writer = Writer::new(Box::new(MetastockOutputWritterFormatter));
 
     for symbol in config.symbols {
         match downloader

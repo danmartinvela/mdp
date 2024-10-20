@@ -1,7 +1,3 @@
-// TICKER,DATE,   HOUR?     OPEN HIGH LOW  CLOSE VOLUMEN
-// NTNX,1/05/2017,15:30:00,13.5,13.94,10.7,11.1,11297800
-// NTNX,1/05/2017,15:45:00,11.6,11.73,10.7,10.77,1291300
-
 pub trait InputDateFormatter {
     fn format(&self, date: &str) -> String;
 }

@@ -1,15 +1,14 @@
+use crate::date_formatter::InputDateFormatter;
 use core::fmt;
 
-use crate::date_formatter::InputDateFormatter;
-
 pub struct Entry {
-    symbol: String,
-    date: String,
-    open: f64,
-    close: f64,
-    high: f64,
-    low: f64,
-    volume: i64,
+    pub symbol: String,
+    pub date: String,
+    pub open: f64,
+    pub close: f64,
+    pub high: f64,
+    pub low: f64,
+    pub volume: i64,
 }
 
 impl Entry {
