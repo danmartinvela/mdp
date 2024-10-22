@@ -9,7 +9,7 @@ mod writer;
 use config::Config;
 use downloader::Downloader;
 use entry::Entry;
-use output_formatter::MetastockOutputWritterFormatter;
+use output_formatter::MetastockOutputWriterFormatter;
 use processor::Processor;
 use serde_json::from_str;
 use std::env;
@@ -32,7 +32,7 @@ async fn main() {
     let downloader = Downloader::new(config.api_key);
     // TODO processor new DYN INPUT DATE
     let processor = Processor::new();
-    let writer = Writer::new(Box::new(MetastockOutputWritterFormatter));
+    let writer = Writer::new(Box::new(MetastockOutputWriterFormatter));
 
     for symbol in config.symbols {
         match downloader

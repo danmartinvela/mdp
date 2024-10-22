@@ -1,4 +1,4 @@
-use crate::{date_formatter::MarketstackInputFormatter, entry::Entry};
+use crate::{date_formatter::MarketstackMetastockDateFormatter, entry::Entry};
 use serde_json::Value;
 
 pub struct Processor;
@@ -36,7 +36,7 @@ impl Processor {
                     high,
                     low,
                     volume,
-                    Box::new(MarketstackInputFormatter),
+                    Box::new(MarketstackMetastockDateFormatter),
                 );
                 println!("{}", entry); //deletable print
                 entries.push(entry);
