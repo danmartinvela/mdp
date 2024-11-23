@@ -33,8 +33,8 @@ mod tests {
         };
         let expected_output = "TSLA,12/01/2024,230.5,251.1,230,250.1,123456789";
 
-        let actual_output = formatter.format(&entry_input);
+        let formatted_output = formatter.format(&entry_input);
 
-        assert_eq!(expected_output, actual_output);
+        assert_eq!(expected_output, formatted_output);
     }
 }

@@ -24,6 +24,7 @@ impl Downloader {
         let response = reqwest::get(&url).await?;
 
         let data: Value = response.json().await?;
+        // println!("{}", data);
         Ok(data)
     }
 }

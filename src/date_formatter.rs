@@ -27,8 +27,8 @@ mod tests {
         let date_input = "2024-10-01T00:00:00+0000";
         let expected_output = "10/01/2024";
 
-        let actual_output = formatter.format(date_input);
+        let formatted_output = formatter.format(date_input);
 
-        assert_eq!(expected_output, actual_output);
+        assert_eq!(expected_output, formatted_output);
     }
 }

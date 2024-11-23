@@ -41,6 +41,7 @@ async fn main() {
         {
             Ok(data) => {
                 let all_entries: Vec<Entry> = processor.process_data(&data);
+                writer.write_file(all_entries);
             }
             Err(e) => eprintln!("Error downloading data for {}: {}", symbol, e),
         }

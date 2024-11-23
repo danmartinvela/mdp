@@ -26,7 +26,7 @@ impl Processor {
                 let close = item.get("close").and_then(|c| c.as_f64()).unwrap_or(0.0);
                 let high = item.get("high").and_then(|h| h.as_f64()).unwrap_or(0.0);
                 let low = item.get("low").and_then(|l| l.as_f64()).unwrap_or(0.0);
-                let volume = item.get("volume").and_then(|v| v.as_i64()).unwrap_or(0);
+                let volume = item.get("volume").and_then(|v| v.as_f64()).unwrap_or(0.0);
 
                 let entry = Entry::new(
                     symbol,

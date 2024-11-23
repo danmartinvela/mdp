@@ -19,7 +19,7 @@ impl Entry {
         close: f64,
         high: f64,
         low: f64,
-        volume: i64,
+        volume: f64,
         formatter: Box<dyn DateFormatter>,
     ) -> Self {
         let formatted_date = formatter.format(&date);
@@ -30,7 +30,7 @@ impl Entry {
             close,
             high,
             low,
-            volume,
+            volume: volume as i64,
         }
     }
 }
@@ -62,7 +62,7 @@ mod tests {
             1.50,
             1.50,
             1.10,
-            123456789,
+            123456789.0,
             formatter,
         );
 
