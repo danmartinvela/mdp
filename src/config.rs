@@ -7,4 +7,5 @@ pub struct Config {
     pub date_to: String,
     pub directory: String,
     pub symbols: Vec<String>,
+    pub limit: Option<u32>,
 }

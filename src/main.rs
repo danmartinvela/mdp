@@ -36,7 +36,7 @@ async fn main() {
 
     for symbol in config.symbols {
         match downloader
-            .download_data(&symbol, &config.date_from, &config.date_to)
+            .download_data(&symbol, &config.date_from, &config.date_to, &config.limit)
             .await
         {
             Ok(data) => {
