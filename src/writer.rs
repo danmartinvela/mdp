@@ -11,15 +11,14 @@ impl Writer {
         Writer { formatter }
     }
 
-    pub fn write_file(&self, entries: Vec<Entry>) {
-        //TODO: add specified folder
+    pub fn write_file(&self, entries: &Vec<Entry>, directory: &String) {
         //or .config folder default
-        let file_name = format!("/Users/danmartinvela/Desktop/{}.txt", entries[0].symbol);
-        let mut file_path = File::create(&file_name).expect("Failed to create file");
+        let file_name = format!("{}/{}.txt", directory, entries[0].symbol);
+        let mut file_path = File::create(&file_name).expect("[Error] failed to create file");
 
         for entry in entries {
             let formatted_entry = self.formatter.format(&entry);
-            writeln!(file_path, "{}", formatted_entry).expect("Failed to write to file");
+            writeln!(file_path, "{}", formatted_entry).expect("[Error] failed to write to file");
         }
     }
 }

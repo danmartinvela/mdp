@@ -20,20 +20,23 @@ use writer::Writer;
 async fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() != 2 {
-        eprintln!("[mdp - example] mdp /Users/danmartinvela/Desktop/mdp/config.txt",);
+        eprintln!("[Warning] a configuration file was expected",);
+        eprintln!("[Example] mdp /Users/danmartinvela/Desktop/mdp/config.txt",);
         std::process::exit(1);
     }
 
     let config_path = &args[1];
     let config_content =
-        fs::read_to_string(config_path).expect("Error: failed to read the config file");
-    let config: Config = from_str(&config_content).expect("Error: failed to parse the config file");
+        fs::read_to_string(config_path).expect("[Error] failed to read the config file");
+    let config: Config =
+        from_str(&config_content).expect("[Error] failed to parse the config file");
 
-    let downloader = Downloader::new(config.api_key);
+    let downloader = Downloader::new(&config.api_key);
     // TODO processor new DYN INPUT DATE
     let processor = Processor::new();
     let writer = Writer::new(Box::new(MetastockOutputWriterFormatter));
 
+    // TODO tokio::spawn
     for symbol in config.symbols {
         match downloader
             .download_data(&symbol, &config.date_from, &config.date_to, &config.limit)
@@ -41,9 +44,9 @@ async fn main() {
         {
             Ok(data) => {
                 let all_entries: Vec<Entry> = processor.process_data(&data);
-                writer.write_file(all_entries);
+                writer.write_file(&all_entries, &config.directory);
             }
-            Err(e) => eprintln!("Error downloading data for {}: {}", symbol, e),
+            Err(e) => eprintln!("[Error] failed to download data for {}: {}", symbol, e),
         }
     }
 }

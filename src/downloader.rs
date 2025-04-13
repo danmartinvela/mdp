@@ -6,8 +6,10 @@ pub struct Downloader {
 }
 
 impl Downloader {
-    pub fn new(api_key: String) -> Self {
-        Downloader { api_key }
+    pub fn new(api_key: &String) -> Self {
+        Downloader {
+            api_key: api_key.to_string(),
+        }
     }
 
     pub async fn download_data(
@@ -25,7 +27,7 @@ impl Downloader {
 
         let response = reqwest::get(&url).await?;
         let data: Value = response.json().await?;
-        //println!("{}", data);
+        // println!("{}", data);
         Ok(data)
     }
 }

@@ -38,12 +38,12 @@ impl Processor {
                     volume,
                     Box::new(MarketstackMetastockDateFormatter),
                 );
-                println!("{}", entry); //deletable print
+                println!("{}", entry);
                 entries.push(entry);
             }
             entries
         } else {
-            println!("No data found in the response.");
+            println!("[Warning] no data found in the response");
             vec![]
         }
     }
