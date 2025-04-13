@@ -13,6 +13,7 @@ Make sure you have the following tools installed:
 
 1. Instala Rust
 2. Clone this repository:
+3.
 
 ## Input
 
