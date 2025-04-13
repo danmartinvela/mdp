@@ -6,12 +6,13 @@ This project is a Rust-based tool for downloading historical financial data from
 
 Make sure you have the following tools installed:
 
-- Rust (version 1.65 or higher recommended)
+- Rust
 - An account on Marketstack to obtain a valid API Key.
 
 ## Project Setup
 
-1. Clone this repository:
+1. Instala Rust
+2. Clone this repository:
 
 ## Input
 
